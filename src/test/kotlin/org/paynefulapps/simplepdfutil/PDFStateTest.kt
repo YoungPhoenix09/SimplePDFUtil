@@ -1,9 +1,9 @@
 package org.paynefulapps.simplepdfutil
 
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.lang.Exception
-import java.nio.file.Path
 import kotlin.io.path.name
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -13,20 +13,21 @@ class PDFStateTest {
 
     @Test
     fun `it can add a file`() {
-        pdfState.addFile(createPDFFile("test1"))
+        pdfState.addFile(TestingUtil.createPDFFile("test1"))
         assertTrue(pdfState.getState().isNotEmpty())
     }
 
     @Test
     fun `it can remove files`() {
-        pdfState.addFile(createPDFFile("test1"))
-        pdfState.addFile(createPDFFile("test2"))
-        pdfState.addFile(createPDFFile("test3"))
+        val test1File = TestingUtil.createPDFFile("test1")
+        pdfState.addFile(test1File)
+        pdfState.addFile(TestingUtil.createPDFFile("test2"))
+        pdfState.addFile(TestingUtil.createPDFFile("test3"))
 
         pdfState.removeFile(2)
         pdfState.removeFile(2)
 
-        assertEquals("test1.pdf", pdfState.getState()[0].filePath.name)
+        assertEquals(test1File.filePath.name, pdfState.getState()[0].filePath.name)
     }
 
     @Test
@@ -36,10 +37,8 @@ class PDFStateTest {
         assertEquals(expectedMessage, exception.message)
     }
 
-
-
-    private fun createPDFFile(name: String) = PDFFile(
-        Path.of("/c/temp/$name.pdf"),
-        1
-    )
+    @AfterEach
+    fun cleanup() {
+        TestingUtil.cleanupCreatedFiles()
+    }
 }
