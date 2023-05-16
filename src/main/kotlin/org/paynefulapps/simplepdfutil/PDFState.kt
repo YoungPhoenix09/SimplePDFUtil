@@ -15,8 +15,4 @@ class PDFState {
         }
         pdfFiles.removeAt(fileIndex-1)
     }
-
-    private fun validateFileExists() {
-
-    }
 }
