@@ -10,4 +10,5 @@ object Messages {
                 |""".trimMargin()
 
     const val PROMPT_FOR_COMMAND = "Specify command: "
+    const val INVALID_PATH_ERROR = "The arguments you provided do not evaluate to valid file paths."
 }

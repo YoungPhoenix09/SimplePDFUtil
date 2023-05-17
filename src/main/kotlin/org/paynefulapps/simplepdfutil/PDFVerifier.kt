@@ -5,7 +5,7 @@ import java.nio.file.Path
 import kotlin.io.path.extension
 import kotlin.io.path.notExists
 
-class PDFVerifier {
+object PDFVerifier {
     fun verifyFile(path: Path): PDFFile {
         verifyPDFExists(path)
         verifyFileIsPDF(path)

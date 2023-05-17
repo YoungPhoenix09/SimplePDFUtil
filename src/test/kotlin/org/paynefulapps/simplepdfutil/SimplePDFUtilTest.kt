@@ -16,7 +16,7 @@ class SimplePDFUtilTest {
     @Test
     fun `it produces welcome`() {
         val testResponse = "Just a test"
-        val expectedMessage = "${Messages.WELCOME}${Messages.PROMPT_FOR_COMMAND}"
+        val expectedMessage = "${Messages.WELCOME}${Messages.PROMPT_FOR_COMMAND}$testResponse"
         SystemIOReplacer.replaceSystemInput(ByteArrayInputStream(testResponse.toByteArray()))
         SimplePDFUtil()
         assertEquals(expectedMessage, SystemIOReplacer.newOut.toString())
@@ -26,5 +26,6 @@ class SimplePDFUtilTest {
     @AfterEach
     fun cleanup() {
         SystemIOReplacer.restoreSystemOutputs()
+        SystemIOReplacer.restoreSystemInput()
     }
 }

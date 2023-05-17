@@ -13,21 +13,21 @@ class PDFStateTest {
 
     @Test
     fun `it can add a file`() {
-        pdfState.addFile(TestingUtil.createPDFFile("test1"))
-        assertTrue(pdfState.getState().isNotEmpty())
+        val newState = pdfState.addFile(TestingUtil.createPDFFile("test1"))
+        assertTrue(newState.getState().isNotEmpty())
     }
 
     @Test
     fun `it can remove files`() {
         val test1File = TestingUtil.createPDFFile("test1")
-        pdfState.addFile(test1File)
-        pdfState.addFile(TestingUtil.createPDFFile("test2"))
-        pdfState.addFile(TestingUtil.createPDFFile("test3"))
+        val stateAfterAdditions = pdfState.addFile(test1File)
+            .addFile(TestingUtil.createPDFFile("test2"))
+            .addFile(TestingUtil.createPDFFile("test3"))
 
-        pdfState.removeFile(2)
-        pdfState.removeFile(2)
+        val stateAfterRemovals = stateAfterAdditions.removeFile(2)
+            .removeFile(2)
 
-        assertEquals(test1File.filePath.name, pdfState.getState()[0].filePath.name)
+        assertEquals(test1File.filePath.name, stateAfterRemovals.getState()[0].filePath.name)
     }
 
     @Test

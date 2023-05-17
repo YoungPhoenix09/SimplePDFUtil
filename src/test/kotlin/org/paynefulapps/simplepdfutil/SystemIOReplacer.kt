@@ -19,6 +19,8 @@ class SystemIOReplacer {
         }
 
         fun restoreSystemOutputs() {
+            newOut.reset()
+            newErr.reset()
             System.setOut(originalSystemOut)
             System.setErr(originalSystemErr)
         }
@@ -28,6 +30,7 @@ class SystemIOReplacer {
         }
 
         fun restoreSystemInput() {
+            newIn.reset()
             System.setIn(originalSystemIn)
         }
     }
