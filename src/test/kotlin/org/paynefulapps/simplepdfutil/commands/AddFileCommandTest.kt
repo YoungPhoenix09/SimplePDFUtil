@@ -1,10 +1,11 @@
-package org.paynefulapps.simplepdfutil
+package org.paynefulapps.simplepdfutil.commands
 
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.paynefulapps.simplepdfutil.commands.AddFileCommand
+import org.paynefulapps.simplepdfutil.PDFState
+import org.paynefulapps.simplepdfutil.TestingUtil
 import java.lang.Exception
 
 class AddFileCommandTest {

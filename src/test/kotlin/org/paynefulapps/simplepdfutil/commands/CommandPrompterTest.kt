@@ -1,9 +1,12 @@
-package org.paynefulapps.simplepdfutil
+package org.paynefulapps.simplepdfutil.commands
 
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.paynefulapps.simplepdfutil.CommandPrompter
+import org.paynefulapps.simplepdfutil.Messages
+import org.paynefulapps.simplepdfutil.SystemIOReplacer
 import java.io.ByteArrayInputStream
 
 class CommandPrompterTest {

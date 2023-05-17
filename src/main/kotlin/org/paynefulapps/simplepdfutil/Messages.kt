@@ -11,4 +11,6 @@ object Messages {
 
     const val PROMPT_FOR_COMMAND = "Specify command: "
     const val INVALID_PATH_ERROR = "The arguments you provided do not evaluate to valid file paths."
+    const val INVALID_COMMAND_ERROR = "Invalid command specified. Please use one of the following commands: add"
+    const val NO_ARGUMENTS_ERROR = "No arguments specified for the command."
 }
