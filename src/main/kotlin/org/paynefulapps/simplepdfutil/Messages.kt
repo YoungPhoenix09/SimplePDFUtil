@@ -8,7 +8,8 @@ object Messages {
                 |at youngphoenix09@gmail.com.
                 |
                 |""".trimMargin()
-
+    const val PDF_STATE_NO_FILES = "(No files)"
+    const val PDF_STATE_HEADER = "Current file list:"
     const val PROMPT_FOR_COMMAND = "Specify command: "
     const val INVALID_PATH_ERROR = "The arguments you provided do not evaluate to valid file paths."
     const val INVALID_COMMAND_ERROR = "Invalid command specified. Please use one of the following commands: add"

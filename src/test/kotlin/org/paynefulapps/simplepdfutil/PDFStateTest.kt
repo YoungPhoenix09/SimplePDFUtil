@@ -1,6 +1,7 @@
 package org.paynefulapps.simplepdfutil
 
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.lang.Exception
@@ -10,6 +11,11 @@ import kotlin.test.assertTrue
 
 class PDFStateTest {
     private val pdfState = PDFState()
+
+    @BeforeEach
+    fun setup() {
+        SystemIOReplacer.replaceSystemOutputs()
+    }
 
     @Test
     fun `it can add a file`() {
@@ -37,8 +43,19 @@ class PDFStateTest {
         assertEquals(expectedMessage, exception.message)
     }
 
+    @Test
+    fun `it can print current state`() {
+        val pdfFile = TestingUtil.createPDFFile("test1")
+        val newLine = System.lineSeparator()
+        val expectedMessage = "${Messages.PDF_STATE_HEADER}${newLine}1. ${pdfFile.filePath}${newLine}${newLine}"
+        val newState = pdfState.addFile(pdfFile)
+        newState.printState()
+        assertEquals(expectedMessage, SystemIOReplacer.newOut.toString())
+    }
+
     @AfterEach
     fun cleanup() {
         TestingUtil.cleanupCreatedFiles()
+        SystemIOReplacer.restoreSystemOutputs()
     }
 }

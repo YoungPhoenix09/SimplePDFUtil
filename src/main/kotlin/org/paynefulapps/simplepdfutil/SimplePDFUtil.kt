@@ -1,11 +1,16 @@
 package org.paynefulapps.simplepdfutil
 class SimplePDFUtil {
     private val commandPrompter = CommandPrompter()
+    private val pdfState = PDFState()
 
     init {
         displayWelcome()
-        val command = commandPrompter.promptForCommand()
-        print(command)
+        do {
+            pdfState.printState()
+            val command = commandPrompter.promptForCommand()
+            println()
+            println()
+        } while (command != "exit")
     }
 
     private fun displayWelcome() {
