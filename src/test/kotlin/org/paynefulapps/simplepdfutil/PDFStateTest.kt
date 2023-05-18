@@ -47,7 +47,7 @@ class PDFStateTest {
     fun `it can print current state`() {
         val pdfFile = TestingUtil.createPDFFile("test1")
         val newLine = System.lineSeparator()
-        val expectedMessage = "${Messages.PDF_STATE_HEADER}${newLine}1. ${pdfFile.filePath}${newLine}${newLine}"
+        val expectedMessage = "${Messages.PDF_STATE_HEADER}${newLine}1. ${pdfFile.filePath.fileName} - ${pdfFile.pageCount} page(s)${newLine}${newLine}"
         val newState = pdfState.addFile(pdfFile)
         newState.printState()
         assertEquals(expectedMessage, SystemIOReplacer.newOut.toString())

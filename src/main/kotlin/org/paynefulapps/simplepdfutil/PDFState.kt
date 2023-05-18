@@ -9,7 +9,7 @@ class PDFState(
         println(Messages.PDF_STATE_HEADER)
         if (pdfFiles.isEmpty()) println(Messages.PDF_STATE_NO_FILES)
         pdfFiles.forEachIndexed { index, pdfFile ->
-            println("${index+1}. ${pdfFile.filePath}")
+            println("${index+1}. ${pdfFile.filePath.fileName} - ${pdfFile.pageCount} page(s)")
         }
         println()
     }
