@@ -10,12 +10,11 @@ class PDFCommandProcessor {
     private fun parseCommand(currentPDFState: PDFState, commandString: String): Command {
         val commandStringList = commandString.split(Regex("\\s"), 2)
         val commandType = getCommandTypeFromCommandListString(commandStringList)
-        val commandArguments = if (commandStringList.size < 2) {
-            throw Exception(Messages.NO_ARGUMENTS_ERROR)
-        } else splitOutCommandArguments(commandStringList)
+        val commandArguments = splitOutCommandArguments(commandStringList)
 
         return when (commandType) {
             PDFCommandType.ADD_FILE -> AddFileCommand(currentPDFState, commandArguments)
+            PDFCommandType.EXIT -> ExitCommand(currentPDFState)
         }
     }
 
@@ -29,9 +28,11 @@ class PDFCommandProcessor {
     }
 
     private fun splitOutCommandArguments(commandStringList: List<String>) =
-        commandStringList[1].split(Regex(",\\s*"))
+        if (commandStringList.size > 1) commandStringList[1].split(Regex(",\\s*"))
+        else emptyList()
 
     enum class PDFCommandType(val stringCommand: String) {
-        ADD_FILE("add")
+        ADD_FILE("add"),
+        EXIT("exit")
     }
 }

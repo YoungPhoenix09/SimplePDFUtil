@@ -23,6 +23,6 @@ class SimplePDFUtil {
     }
 }
 
-fun main(vararg args: String) {
+fun main() {
     SimplePDFUtil()
 }

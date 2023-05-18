@@ -10,7 +10,7 @@ import kotlin.Exception
 class AddFileCommand(
     pdfState: PDFState,
     commandArguments: List<String>
-) : Command(pdfState, commandArguments) {
+) : ArgumentDependentCommand(pdfState, commandArguments) {
     override fun execute(): PDFState {
         var newPDFState = pdfState
         return try {
