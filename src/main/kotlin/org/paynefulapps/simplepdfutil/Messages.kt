@@ -14,4 +14,5 @@ object Messages {
     const val INVALID_PATH_ERROR = "The arguments you provided do not evaluate to valid file paths."
     const val INVALID_COMMAND_ERROR = "Invalid command specified. Please use one of the following commands: add exit"
     const val NO_ARGUMENTS_ERROR = "No arguments specified for the command."
+    const val NOT_INTEGER_ERROR = "The arguments supplied are not integers, which are required for this command."
 }

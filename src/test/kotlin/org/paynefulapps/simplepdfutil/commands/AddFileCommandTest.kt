@@ -10,7 +10,7 @@ import java.lang.Exception
 
 class AddFileCommandTest {
     @Test
-    fun `it is able to add a to pdf state`() {
+    fun `it is able to add a file to pdf state`() {
         val pdfFile = TestingUtil.createPDFFile()
         val pdfState = PDFState()
         val command = AddFileCommand(pdfState, listOf(pdfFile.filePath.toAbsolutePath().toString()))

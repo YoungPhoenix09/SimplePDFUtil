@@ -23,4 +23,12 @@ class PDFState(
         }
         return PDFState((pdfFiles - pdfFiles[fileIndex-1]))
     }
+
+    fun removeFile(pdfFile: PDFFile): PDFState {
+        return try {
+            PDFState((pdfFiles - pdfFile))
+        } catch (e: Exception) {
+            throw Exception("The file does not exist in the state.")
+        }
+    }
 }

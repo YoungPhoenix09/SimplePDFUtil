@@ -8,10 +8,10 @@ abstract class ArgumentDependentCommand(
     protected val commandArguments: List<String>
 ) : Command(pdfState) {
     init {
-        checkArguments()
+        checkArgumentsExist()
     }
 
-    private fun checkArguments() {
+    private fun checkArgumentsExist() {
         if (commandArguments.isEmpty()) {
             throw Exception(Messages.NO_ARGUMENTS_ERROR)
         }

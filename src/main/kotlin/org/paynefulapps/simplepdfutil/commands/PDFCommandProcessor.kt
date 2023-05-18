@@ -14,6 +14,7 @@ class PDFCommandProcessor {
 
         return when (commandType) {
             PDFCommandType.ADD_FILE -> AddFileCommand(currentPDFState, commandArguments)
+            PDFCommandType.REMOVE_FILE -> RemoveFileCommand(currentPDFState, commandArguments)
             PDFCommandType.EXIT -> ExitCommand(currentPDFState)
         }
     }
@@ -33,6 +34,7 @@ class PDFCommandProcessor {
 
     enum class PDFCommandType(val stringCommand: String) {
         ADD_FILE("add"),
+        REMOVE_FILE("remove"),
         EXIT("exit")
     }
 }

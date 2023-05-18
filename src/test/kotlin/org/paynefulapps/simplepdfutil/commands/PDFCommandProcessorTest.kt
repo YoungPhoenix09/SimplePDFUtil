@@ -40,6 +40,18 @@ class PDFCommandProcessorTest {
     }
 
     @Test
+    fun `it can process a RemoveFileCommand`() {
+        val testPdf = TestingUtil.createPDFFile("test")
+        val testPdf2 = TestingUtil.createPDFFile("test")
+        val initialPDFState = PDFState(listOf(
+            testPdf, testPdf2
+        ))
+        val expectedState = PDFState(listOf(testPdf2))
+        val actualState = pdfCommandProcessor.processCommand(initialPDFState, "remove 1")
+        assertEquals(expectedState.getState(), actualState.getState())
+    }
+
+    @Test
     fun cleanup() {
         TestingUtil.cleanupCreatedFiles()
     }
