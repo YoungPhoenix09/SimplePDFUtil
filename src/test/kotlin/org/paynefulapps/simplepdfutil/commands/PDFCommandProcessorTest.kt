@@ -33,8 +33,9 @@ class PDFCommandProcessorTest {
     fun `it can process an AddFileCommand`() {
         val initialPDFState = PDFState()
         val testPdf = TestingUtil.createPDFFile("test")
-        val expectedState = PDFState(listOf(testPdf))
-        val actualState = pdfCommandProcessor.processCommand(initialPDFState, "add ${testPdf.filePath}")
+        val testPdf2 = TestingUtil.createPDFFile("test")
+        val expectedState = PDFState(listOf(testPdf, testPdf2))
+        val actualState = pdfCommandProcessor.processCommand(initialPDFState, "add ${testPdf.filePath}, ${testPdf2.filePath}")
         assertEquals(expectedState.getState(), actualState.getState())
     }
 

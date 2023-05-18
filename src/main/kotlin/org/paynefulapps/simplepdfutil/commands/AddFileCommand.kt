@@ -9,7 +9,7 @@ import kotlin.Exception
 
 class AddFileCommand(
     pdfState: PDFState,
-    commandArguments: Array<String>
+    commandArguments: List<String>
 ) : Command(pdfState, commandArguments) {
     override fun execute(): PDFState {
         var newPDFState = pdfState

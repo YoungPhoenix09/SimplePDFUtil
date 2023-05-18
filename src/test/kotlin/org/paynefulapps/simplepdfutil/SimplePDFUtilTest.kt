@@ -3,7 +3,6 @@ package org.paynefulapps.simplepdfutil
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.io.BufferedInputStream
 import java.io.ByteArrayInputStream
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
