@@ -7,7 +7,7 @@ import org.paynefulapps.simplepdfutil.UserPrompter
 import org.paynefulapps.simplepdfutil.PDFState
 import java.nio.file.Path
 
-class MergeCommand(
+class ExtractCommand(
     pdfState: PDFState,
     commandArguments: List<String>
 ) : PageDependentCommand(pdfState, commandArguments) {
