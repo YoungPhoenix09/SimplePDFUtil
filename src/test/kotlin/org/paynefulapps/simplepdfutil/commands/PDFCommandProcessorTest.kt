@@ -2,13 +2,16 @@ package org.paynefulapps.simplepdfutil.commands
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.paynefulapps.simplepdfutil.Messages
-import org.paynefulapps.simplepdfutil.PDFState
-import org.paynefulapps.simplepdfutil.TestingUtil
+import org.paynefulapps.simplepdfutil.*
 import java.lang.Exception
+import java.nio.file.Files
+import kotlin.io.path.ExperimentalPathApi
+import kotlin.io.path.Path
+import kotlin.io.path.deleteRecursively
 import kotlin.test.assertEquals
 
 class PDFCommandProcessorTest {
+    private val tempDir = Files.createTempDirectory(null)
     private val pdfCommandProcessor = PDFCommandProcessor()
 
     @Test
@@ -52,7 +55,27 @@ class PDFCommandProcessorTest {
     }
 
     @Test
+    fun `it can process an ExtractCommand`() {
+        val pdfFilePath = Path(tempDir.toString(), "testFile.pdf")
+        UserPrompter.sendStringsAsInput("1", "1", pdfFilePath.toString())
+        val testPdf = TestingUtil.createPDFFile("test")
+        val testPdf2 = TestingUtil.createPDFFile("test")
+        val initialPDFState = PDFState(listOf(
+            testPdf, testPdf2
+        ))
+        val expectedState = PDFState(listOf(
+            testPdf,
+            testPdf2,
+            PDFFile(pdfFilePath,2)
+        ))
+        val actualState = pdfCommandProcessor.processCommand(initialPDFState, "extract 1,2")
+        assertEquals(expectedState.getState(), actualState.getState())
+    }
+
+    @OptIn(ExperimentalPathApi::class)
+    @Test
     fun cleanup() {
+        tempDir.deleteRecursively()
         TestingUtil.cleanupCreatedFiles()
     }
 }

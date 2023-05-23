@@ -6,12 +6,10 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.paynefulapps.simplepdfutil.*
-import java.io.ByteArrayInputStream
 import java.nio.file.Files
 import kotlin.io.path.*
 
 class ExtractCommandTest {
-    private val newLine = System.lineSeparator()
     private val pdfState = TestingUtil.setupPDFStateWithFiles()
     private val tempDirPath = Files.createTempDirectory(null)
 
@@ -28,7 +26,7 @@ class ExtractCommandTest {
             .joinWithNewLine(Messages.PROMPT_FOR_NEW_FILE_NAME)
             .joinWithNewLine("Pages were merged into new file $pdfFilePath.")
             .joinWithNewLine("")
-        UserPrompter.replaceInputSource(ByteArrayInputStream("1${newLine}1${newLine}$pdfFilePath$newLine".toByteArray()))
+        UserPrompter.sendStringsAsInput("1", "1", pdfFilePath.toString())
         val command = ExtractCommand(pdfState, listOf("1","3"))
         command.execute()
         assertEquals(expectedMessages, SystemIOReplacer.newOut.toString())
@@ -43,7 +41,7 @@ class ExtractCommandTest {
 
     @Test
     fun `it errors on a bad page specifications`() {
-        UserPrompter.replaceInputSource(ByteArrayInputStream("a${newLine}b".toByteArray()))
+        UserPrompter.sendStringsAsInput("a", "b")
         val command = ExtractCommand(pdfState, listOf("1","3"))
         val exception = assertThrows<Exception> { command.execute() }
         assertEquals(Messages.getBadPageError("a"), exception.message)
@@ -51,7 +49,7 @@ class ExtractCommandTest {
 
     @Test
     fun `it errors on a bad page range specifications`() {
-        UserPrompter.replaceInputSource(ByteArrayInputStream("a - b${newLine}b - c".toByteArray()))
+        UserPrompter.sendStringsAsInput("a - b", "b - c")
         val command = ExtractCommand(pdfState, listOf("1","3"))
         val exception = assertThrows<Exception> { command.execute() }
         assertEquals(Messages.getInvalidRangeError("a - b"), exception.message)
@@ -72,7 +70,7 @@ class ExtractCommandTest {
 
     @Test
     fun `it errors when invalid pages are specified`() {
-        UserPrompter.replaceInputSource(ByteArrayInputStream("2${newLine}".toByteArray()))
+        UserPrompter.sendStringsAsInput("2")
         val command = ExtractCommand(pdfState, listOf("1","3"))
         val exception = assertThrows<Exception> { command.execute() }
         assertEquals(Messages.getInvalidPagesError(1,2), exception.message)
@@ -86,7 +84,7 @@ class ExtractCommandTest {
             .joinWithNewLine(Messages.PROMPT_FOR_NEW_FILE_NAME)
             .joinWithNewLine("Pages were merged into new file $pdfFilePath.")
             .joinWithNewLine("")
-        UserPrompter.replaceInputSource(ByteArrayInputStream("1${newLine}1${newLine}$pdfFilePath$newLine".toByteArray()))
+        UserPrompter.sendStringsAsInput("1", "1", pdfFilePath.toString())
         val command = ExtractCommand(pdfState, listOf("1","3"))
         command.execute()
         assertEquals(expectedMessages, SystemIOReplacer.newOut.toString())
@@ -95,7 +93,7 @@ class ExtractCommandTest {
     @Test
     fun `it validates the file name given`() {
         val expectedFileNamePath = "///mergedFile.pdf"
-        UserPrompter.replaceInputSource(ByteArrayInputStream("1${newLine}1${newLine}$expectedFileNamePath$newLine".toByteArray()))
+        UserPrompter.sendStringsAsInput("1", "1", expectedFileNamePath)
         val command = ExtractCommand(pdfState, listOf("1","3"))
         val exception = assertThrows<Exception> { command.execute() }
         assertEquals(Messages.INVALID_PATH_ERROR, exception.message)
@@ -105,7 +103,7 @@ class ExtractCommandTest {
     fun `it can merge file pages`() {
         val fileNamePath = Path(tempDirPath.toString(), "mergedFile.pdf")
         val expectedPdfFile = PDFFile(fileNamePath, 2)
-        UserPrompter.replaceInputSource(ByteArrayInputStream("1${newLine}1${newLine}$fileNamePath$newLine".toByteArray()))
+        UserPrompter.sendStringsAsInput("1", "1", fileNamePath.toString())
         val command = ExtractCommand(pdfState, listOf("1","3"))
         val newPdfState = command.execute()
         assertEquals(4, newPdfState.getState().size)

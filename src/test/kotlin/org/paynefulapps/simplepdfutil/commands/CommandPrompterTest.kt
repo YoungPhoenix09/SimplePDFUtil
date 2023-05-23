@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test
 import org.paynefulapps.simplepdfutil.UserPrompter
 import org.paynefulapps.simplepdfutil.Messages
 import org.paynefulapps.simplepdfutil.SystemIOReplacer
-import java.io.ByteArrayInputStream
 
 class CommandPrompterTest {
     @BeforeEach
@@ -17,8 +16,7 @@ class CommandPrompterTest {
 
     @Test
     fun `it prompts for a command`() {
-        val testResponse = "Test input"
-        UserPrompter.replaceInputSource(ByteArrayInputStream(testResponse.toByteArray()))
+        UserPrompter.sendStringsAsInput("Test input")
         UserPrompter.promptUser(Messages.PROMPT_FOR_COMMAND)
         assertEquals(Messages.PROMPT_FOR_COMMAND, SystemIOReplacer.newOut.toString())
     }
