@@ -24,8 +24,22 @@ object TestingUtil {
         }
     }
 
+    fun setupPDFStateWithFiles(): PDFState {
+        val pdfFile1 = createPDFFile()
+        val pdfFile2 = createPDFFile()
+        val pdfFile3 = createPDFFile()
+        return PDFState(listOf(
+            pdfFile1,
+            pdfFile2,
+            pdfFile3,
+        ))
+    }
+
     fun cleanupCreatedFiles() = createdFiles.forEach {
         it.value.filePath.deleteIfExists()
         createdFiles.remove(it.key)
     }
 }
+
+fun String.joinWithNewLine(string: String): String =
+    "$this${System.lineSeparator()}$string"

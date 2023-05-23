@@ -5,12 +5,11 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.paynefulapps.simplepdfutil.Messages
-import org.paynefulapps.simplepdfutil.PDFState
 import org.paynefulapps.simplepdfutil.TestingUtil
 import java.lang.Exception
 
 class RemoveFileCommandTest {
-    private val pdfState = setupPDFState()
+    private val pdfState = TestingUtil.setupPDFStateWithFiles()
 
     @Test
     fun `it is able to remove a file from pdf state`() {
@@ -46,17 +45,5 @@ class RemoveFileCommandTest {
     @AfterEach
     fun cleanup() {
         TestingUtil.cleanupCreatedFiles()
-    }
-
-    private fun setupPDFState(): PDFState {
-        val pdfFile1 = TestingUtil.createPDFFile()
-        val pdfFile2 = TestingUtil.createPDFFile()
-        val pdfFile3 = TestingUtil.createPDFFile()
-        val command = AddFileCommand(PDFState(), listOf(
-            pdfFile1.filePath.toAbsolutePath().toString(),
-            pdfFile2.filePath.toAbsolutePath().toString(),
-            pdfFile3.filePath.toAbsolutePath().toString(),
-        ))
-        return command.execute()
     }
 }

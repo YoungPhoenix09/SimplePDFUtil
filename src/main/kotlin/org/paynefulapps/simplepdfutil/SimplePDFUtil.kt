@@ -3,7 +3,6 @@ package org.paynefulapps.simplepdfutil
 import org.paynefulapps.simplepdfutil.commands.PDFCommandProcessor
 
 class SimplePDFUtil {
-    private val commandPrompter = CommandPrompter()
     private val commandProcessor = PDFCommandProcessor()
     private var pdfState = PDFState()
 
@@ -11,7 +10,7 @@ class SimplePDFUtil {
         displayWelcome()
         do {
             pdfState.printState()
-            val commandString = commandPrompter.promptForCommand()
+            val commandString = UserPrompter.promptUser(Messages.PROMPT_FOR_COMMAND)
             println()
             println()
             pdfState = commandProcessor.processCommand(pdfState, commandString)

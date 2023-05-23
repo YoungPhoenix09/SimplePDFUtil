@@ -19,7 +19,7 @@ class PDFState(
 
     fun removeFile(fileIndex: Int): PDFState {
         if (fileIndex > pdfFiles.size || fileIndex < 1) {
-            throw Exception("There is not a file with ID number $fileIndex.")
+            throw Exception(Messages.getNoFileIdError(fileIndex))
         }
         return PDFState((pdfFiles - pdfFiles[fileIndex-1]))
     }

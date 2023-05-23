@@ -18,7 +18,7 @@ class SimplePDFUtilTest {
         val testResponse = "exit"
         val newLine = System.lineSeparator()
         val expectedMessage = "${Messages.WELCOME}${Messages.PDF_STATE_HEADER}$newLine${Messages.PDF_STATE_NO_FILES}$newLine$newLine${Messages.PROMPT_FOR_COMMAND}$newLine$newLine"
-        SystemIOReplacer.replaceSystemInput(ByteArrayInputStream(testResponse.toByteArray()))
+        UserPrompter.replaceInputSource(ByteArrayInputStream(testResponse.toByteArray()))
         SimplePDFUtil()
         assertEquals(expectedMessage, SystemIOReplacer.newOut.toString())
         assertTrue { SystemIOReplacer.newErr.toString().isEmpty() }
@@ -27,6 +27,5 @@ class SimplePDFUtilTest {
     @AfterEach
     fun cleanup() {
         SystemIOReplacer.restoreSystemOutputs()
-        SystemIOReplacer.restoreSystemInput()
     }
 }
