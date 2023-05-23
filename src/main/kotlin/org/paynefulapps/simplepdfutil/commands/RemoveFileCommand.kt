@@ -2,6 +2,7 @@ package org.paynefulapps.simplepdfutil.commands
 
 import org.paynefulapps.simplepdfutil.Messages
 import org.paynefulapps.simplepdfutil.PDFState
+import org.paynefulapps.simplepdfutil.commands.base.ArgumentDependentCommand
 import kotlin.Exception
 
 class RemoveFileCommand(

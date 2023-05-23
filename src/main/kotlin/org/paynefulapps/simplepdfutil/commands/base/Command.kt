@@ -1,4 +1,4 @@
-package org.paynefulapps.simplepdfutil.commands
+package org.paynefulapps.simplepdfutil.commands.base
 
 import org.paynefulapps.simplepdfutil.PDFState
 

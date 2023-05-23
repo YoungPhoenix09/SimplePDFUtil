@@ -1,4 +1,4 @@
-package org.paynefulapps.simplepdfutil.commands
+package org.paynefulapps.simplepdfutil.commands.base
 
 import org.paynefulapps.simplepdfutil.Messages
 import org.paynefulapps.simplepdfutil.PDFState
@@ -15,5 +15,16 @@ abstract class ArgumentDependentCommand(
         if (commandArguments.isEmpty()) {
             throw Exception(Messages.NO_ARGUMENTS_ERROR)
         }
+    }
+
+    protected fun checkStateHasFiles() {
+        if (pdfState.getState().isEmpty())
+            throw Exception(Messages.NO_FILES_ERROR)
+    }
+
+    protected fun checkFileIdExists(fileId: Int) {
+        val fileIdRange = 1..pdfState.getState().size
+        if (!fileIdRange.contains(fileId))
+            throw Exception(Messages.getNoFileIdError(fileId))
     }
 }

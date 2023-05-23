@@ -1,4 +1,4 @@
-package org.paynefulapps.simplepdfutil.commands
+package org.paynefulapps.simplepdfutil.commands.base
 
 import org.paynefulapps.simplepdfutil.UserPrompter
 import org.paynefulapps.simplepdfutil.Messages
@@ -19,7 +19,7 @@ abstract class PageDependentCommand(
         val pdfFileList = pdfState.getState()
         val filePageListMapping = commandArguments.associate { arg ->
             val pdfFileId = arg.toIntOrNull() ?:
-            throw Exception(Messages.NOT_INTEGER_ERROR)
+                throw Exception(Messages.NOT_INTEGER_ERROR)
             checkFileIdExists(pdfFileId)
             val responseForPages = UserPrompter.promptUser(Messages.promptForPages(pdfFileId))
             println()
@@ -54,17 +54,6 @@ abstract class PageDependentCommand(
         if (upperBound == null || lowerBound == null)
             throw Exception(Messages.getInvalidRangeError(stringValue))
         return (upperBound..lowerBound).toList()
-    }
-
-    private fun checkStateHasFiles() {
-        if (pdfState.getState().isEmpty())
-            throw Exception(Messages.NO_FILES_ERROR)
-    }
-
-    private fun checkFileIdExists(fileId: Int) {
-        val fileIdRange = 1..pdfState.getState().size
-        if (!fileIdRange.contains(fileId))
-            throw Exception(Messages.getNoFileIdError(fileId))
     }
 
     private fun checkPageNumberIsInPdfPageRange(fileId: Int, pageNumber: Int) {

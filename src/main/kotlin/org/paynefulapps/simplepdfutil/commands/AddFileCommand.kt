@@ -3,6 +3,7 @@ package org.paynefulapps.simplepdfutil.commands
 import org.paynefulapps.simplepdfutil.Messages
 import org.paynefulapps.simplepdfutil.PDFState
 import org.paynefulapps.simplepdfutil.PDFVerifier
+import org.paynefulapps.simplepdfutil.commands.base.ArgumentDependentCommand
 import java.nio.file.InvalidPathException
 import java.nio.file.Path
 import kotlin.Exception
