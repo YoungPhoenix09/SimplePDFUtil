@@ -17,6 +17,7 @@ class PDFCommandProcessor {
             PDFCommandType.ADD_FILE -> AddFileCommand(currentPDFState, commandArguments)
             PDFCommandType.REMOVE_FILE -> RemoveFileCommand(currentPDFState, commandArguments)
             PDFCommandType.EXTRACT -> ExtractCommand(currentPDFState, commandArguments)
+            PDFCommandType.DELETE -> DeleteCommand(currentPDFState, commandArguments)
             PDFCommandType.EXIT -> ExitCommand(currentPDFState)
         }
     }
@@ -38,6 +39,7 @@ class PDFCommandProcessor {
         ADD_FILE("add"),
         REMOVE_FILE("remove"),
         EXTRACT("extract"),
+        DELETE("delete"),
         EXIT("exit")
     }
 }

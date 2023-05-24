@@ -10,11 +10,13 @@ import kotlin.io.path.name
 object TestingUtil {
     private val createdFiles = ConcurrentHashMap<String,PDFFile>()
 
-    fun createPDFFile(name: String? = null): PDFFile {
+    fun createPDFFile(name: String? = null, pageCount: Int = 1): PDFFile {
         val filePath = Files.createTempFile(name, ".pdf")
-        val pdf = PDDocument().also {
-            it.addPage(PDPage())
-            it.save(filePath.toFile())
+        val pdf = PDDocument().also { doc ->
+            repeat(pageCount) {
+                doc.addPage(PDPage())
+            }
+            doc.save(filePath.toFile())
         }
         return pdf.use {
             PDFFile(
@@ -40,6 +42,3 @@ object TestingUtil {
         createdFiles.remove(it.key)
     }
 }
-
-fun String.joinWithNewLine(string: String): String =
-    "$this${System.lineSeparator()}$string"

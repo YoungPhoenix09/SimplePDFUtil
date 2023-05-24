@@ -72,6 +72,20 @@ class PDFCommandProcessorTest {
         assertEquals(expectedState.getState(), actualState.getState())
     }
 
+    @Test
+    fun `it can process a DeleteCommand`() {
+        UserPrompter.sendStringsAsInput("1-2")
+        val testPdf = TestingUtil.createPDFFile("test", 3)
+        val initialPDFState = PDFState(listOf(
+            testPdf
+        ))
+        val expectedState = PDFState(listOf(
+            PDFFile(testPdf.filePath, 1),
+        ))
+        val actualState = pdfCommandProcessor.processCommand(initialPDFState, "delete 1")
+        assertEquals(expectedState.getState(), actualState.getState())
+    }
+
     @OptIn(ExperimentalPathApi::class)
     @Test
     fun cleanup() {
