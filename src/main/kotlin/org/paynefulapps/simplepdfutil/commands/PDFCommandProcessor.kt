@@ -17,6 +17,7 @@ class PDFCommandProcessor {
             PDFCommandType.ADD_FILE -> AddFileCommand(currentPDFState, commandArguments)
             PDFCommandType.REMOVE_FILE -> RemoveFileCommand(currentPDFState, commandArguments)
             PDFCommandType.EXTRACT -> ExtractCommand(currentPDFState, commandArguments)
+            PDFCommandType.MERGE -> MergeCommand(currentPDFState, commandArguments)
             PDFCommandType.REORDER -> ReorderCommand(currentPDFState, commandArguments)
             PDFCommandType.DELETE -> DeleteCommand(currentPDFState, commandArguments)
             PDFCommandType.EXIT -> ExitCommand(currentPDFState)
@@ -36,10 +37,11 @@ class PDFCommandProcessor {
         if (commandStringList.size > 1) commandStringList[1].split(Regex(",\\s*"))
         else emptyList()
 
-    enum class PDFCommandType(val stringCommand: String) {
+    private enum class PDFCommandType(val stringCommand: String) {
         ADD_FILE("add"),
         REMOVE_FILE("remove"),
         EXTRACT("extract"),
+        MERGE("merge"),
         REORDER("reorder"),
         DELETE("delete"),
         EXIT("exit")

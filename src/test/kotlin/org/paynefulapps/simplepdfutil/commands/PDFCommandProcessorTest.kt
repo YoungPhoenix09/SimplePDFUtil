@@ -74,6 +74,24 @@ class PDFCommandProcessorTest {
     }
 
     @Test
+    fun `it can process a MergeCommand`() {
+        val pdfFilePath = Path(tempDir.toString(), "mergedFile.pdf")
+        UserPrompter.sendStringsAsInput(pdfFilePath.toString())
+        val testPdf = TestingUtil.createPDFFile("test")
+        val testPdf2 = TestingUtil.createPDFFile("test")
+        val initialPDFState = PDFState(listOf(
+            testPdf, testPdf2
+        ))
+        val expectedState = PDFState(listOf(
+            testPdf,
+            testPdf2,
+            PDFFile(pdfFilePath,2)
+        ))
+        val actualState = pdfCommandProcessor.processCommand(initialPDFState, "merge 1,2")
+        assertEquals(expectedState.getState(), actualState.getState())
+    }
+
+    @Test
     fun `it can process a DeleteCommand`() {
         UserPrompter.sendStringsAsInput("1-2")
         val testPdf = TestingUtil.createPDFFile("test", 3)
