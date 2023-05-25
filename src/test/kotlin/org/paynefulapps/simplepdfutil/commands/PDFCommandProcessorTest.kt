@@ -1,5 +1,6 @@
 package org.paynefulapps.simplepdfutil.commands
 
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.paynefulapps.simplepdfutil.*
@@ -86,8 +87,22 @@ class PDFCommandProcessorTest {
         assertEquals(expectedState.getState(), actualState.getState())
     }
 
-    @OptIn(ExperimentalPathApi::class)
     @Test
+    fun `it can process a ReorderCommand`() {
+        UserPrompter.sendStringsAsInput("2,3")
+        val testPdf = TestingUtil.createPDFFile("test", 3)
+        val initialPDFState = PDFState(listOf(
+            testPdf
+        ))
+        val expectedState = PDFState(listOf(
+            PDFFile(testPdf.filePath, 3),
+        ))
+        val actualState = pdfCommandProcessor.processCommand(initialPDFState, "reorder 1")
+        assertEquals(expectedState.getState(), actualState.getState())
+    }
+
+    @OptIn(ExperimentalPathApi::class)
+    @AfterEach
     fun cleanup() {
         tempDir.deleteRecursively()
         TestingUtil.cleanupCreatedFiles()

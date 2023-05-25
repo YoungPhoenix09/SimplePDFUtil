@@ -26,8 +26,8 @@ class DeleteCommandTest {
 
     private fun setupState(): PDFState {
         return PDFState(listOf(
-            TestingUtil.createPDFFile(pageCount = 3),
-            TestingUtil.createPDFFile(pageCount = 2)
+            TestingUtil.createPDFFile(numberOfPages = 3),
+            TestingUtil.createPDFFile(numberOfPages = 2)
         ))
     }
 

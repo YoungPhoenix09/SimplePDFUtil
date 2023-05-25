@@ -29,16 +29,18 @@ class ExtractCommand(
     private fun extractPagesIntoNewFile(
         fileName: Path,
         filePageListMapping: Map<PDFFile, List<Int>>
-    ) = PDDocument().use { newDoc ->
-        filePageListMapping.forEach { (pdfFile, pageList) ->
-            PDDocument.load(pdfFile.filePath.toFile()).use { loadedPdf ->
-                pageList.forEach { pageNumber ->
-                    val pdfPage = loadedPdf.getPage(pageNumber-1)
-                    newDoc.addPage(pdfPage)
+    ): PDFFile {
+        return PDDocument().use { newDoc ->
+            filePageListMapping.forEach { (pdfFile, pageList) ->
+                PDDocument.load(pdfFile.filePath.toFile()).use { loadedPdf ->
+                    pageList.forEach { pageNumber ->
+                        val pdfPage = loadedPdf.getPage(pageNumber-1)
+                        newDoc.importPage(pdfPage)
+                    }
                 }
             }
+            newDoc.save(fileName.toFile())
+            PDFFile(fileName, newDoc.numberOfPages)
         }
-        newDoc.save(fileName.toFile())
-        PDFFile(fileName, newDoc.numberOfPages)
     }
 }

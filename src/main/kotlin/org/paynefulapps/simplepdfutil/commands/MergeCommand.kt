@@ -9,12 +9,12 @@ import org.paynefulapps.simplepdfutil.PDFState
 import org.paynefulapps.simplepdfutil.commands.base.ArgumentDependentCommand
 import java.nio.file.Path
 
-object PdfMerger : PDFMergerUtility()
-
 class MergeCommand(
     pdfState: PDFState,
     commandArguments: List<String>
 ) : ArgumentDependentCommand(pdfState, commandArguments) {
+    private val pdfMerger = PDFMergerUtility()
+
     override fun execute(): PDFState {
         checkStateHasFiles()
         val fileNameString = UserPrompter.promptUser(Messages.PROMPT_FOR_NEW_FILE_NAME)
@@ -39,7 +39,7 @@ class MergeCommand(
             checkFileIdExists(fileId)
             val pdfFile = pdfState.getState()[fileId-1]
             PDDocument.load(pdfFile.filePath.toFile()).use { loadedPdf ->
-                PdfMerger.appendDocument(newDoc, loadedPdf)
+                pdfMerger.appendDocument(newDoc, loadedPdf)
             }
         }
         newDoc.save(fileName.toFile())

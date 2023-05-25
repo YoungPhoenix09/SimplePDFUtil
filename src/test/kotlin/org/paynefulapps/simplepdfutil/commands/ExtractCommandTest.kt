@@ -29,7 +29,7 @@ class ExtractCommandTest {
 
     @Test
     fun `it can extract file pages`() {
-        val fileNamePath = Path(tempDirPath.toString(), "mergedFile.pdf")
+        val fileNamePath = Path(tempDirPath.toString(), "extractedFile.pdf")
         val expectedPdfFile = PDFFile(fileNamePath, 2)
         UserPrompter.sendStringsAsInput("1", "1", fileNamePath.toString())
         val command = ExtractCommand(pdfState, listOf("1","3"))
