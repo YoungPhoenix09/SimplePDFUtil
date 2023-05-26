@@ -19,15 +19,17 @@ class DeleteCommandTest {
         UserPrompter.sendStringsAsInput("2,3", "1")
         val command = DeleteCommand(pdfState, listOf("1","2"))
         val newPdfState = command.execute()
-        assertEquals(2, newPdfState.getState().size)
-        assertEquals(1, newPdfState.getState()[0].pageCount)
-        assertEquals(1, newPdfState.getState()[1].pageCount)
+        assertEquals(3, newPdfState.getPDFFileList().size)
+        assertEquals(4, newPdfState.getPDFFileList()[0].pageCount)
+        assertEquals(1, newPdfState.getPDFFileList()[1].pageCount)
+        assertEquals(1, newPdfState.getPDFFileList()[2].pageCount)
     }
 
     private fun setupState(): PDFState {
         return PDFState(listOf(
             TestingUtil.createPDFFile(numberOfPages = 3),
-            TestingUtil.createPDFFile(numberOfPages = 2)
+            TestingUtil.createPDFFile(numberOfPages = 2),
+            TestingUtil.createPDFFile(numberOfPages = 4),
         ))
     }
 

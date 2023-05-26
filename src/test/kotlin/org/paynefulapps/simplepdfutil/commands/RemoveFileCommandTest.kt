@@ -15,17 +15,17 @@ class RemoveFileCommandTest {
     fun `it is able to remove a file from pdf state`() {
         val command = RemoveFileCommand(pdfState, listOf("2"))
         val newPDFState = command.execute()
-        assertEquals(2, newPDFState.getState().size)
-        assertEquals(pdfState.getState()[0], newPDFState.getState()[0])
-        assertEquals(pdfState.getState()[2], newPDFState.getState()[1])
+        assertEquals(2, newPDFState.getPDFFileList().size)
+        assertEquals(pdfState.getPDFFileList()[0], newPDFState.getPDFFileList()[0])
+        assertEquals(pdfState.getPDFFileList()[2], newPDFState.getPDFFileList()[1])
     }
 
     @Test
     fun `it is able to remove multiple files from pdf state`() {
         val command = RemoveFileCommand(pdfState, listOf("1", "3"))
         val newPDFState = command.execute()
-        assertEquals(1, newPDFState.getState().size)
-        assertEquals(pdfState.getState()[1], newPDFState.getState()[0])
+        assertEquals(1, newPDFState.getPDFFileList().size)
+        assertEquals(pdfState.getPDFFileList()[1], newPDFState.getPDFFileList()[0])
     }
 
     @Test
@@ -39,7 +39,7 @@ class RemoveFileCommandTest {
     fun `it does not alter original state`() {
         val command = RemoveFileCommand(pdfState, listOf("1"))
         command.execute()
-        assertEquals(3, pdfState.getState().size)
+        assertEquals(3, pdfState.getPDFFileList().size)
     }
 
     @AfterEach

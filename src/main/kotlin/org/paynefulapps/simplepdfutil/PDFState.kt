@@ -3,7 +3,7 @@ package org.paynefulapps.simplepdfutil
 class PDFState(
     private val pdfFiles: List<PDFFile> = listOf()
 ) {
-    fun getState(): List<PDFFile> = pdfFiles
+    fun getPDFFileList(): List<PDFFile> = pdfFiles
 
     fun printState() {
         println(Messages.PDF_STATE_HEADER)

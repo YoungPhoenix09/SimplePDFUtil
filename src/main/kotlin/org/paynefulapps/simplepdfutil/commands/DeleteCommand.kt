@@ -19,8 +19,10 @@ class DeleteCommand(
     private fun deletePages(
         filePageListMapping: Map<PDFFile, List<Int>>
     ): PDFState {
-        val updateFileList = filePageListMapping.map { (pdfFile, pageList) ->
-            PDDocument.load(pdfFile.filePath.toFile()).use { loadedPdf ->
+        var updatedPdfState = pdfState
+        filePageListMapping.forEach { (pdfFile, pageList) ->
+            val remainingPdfState = updatedPdfState.removeFile(pdfFile)
+            val updatedPDFFile = PDDocument.load(pdfFile.filePath.toFile()).use { loadedPdf ->
                 pageList.map { pageNumber ->
                     loadedPdf.getPage(pageNumber-1)
                 }.forEach { page ->
@@ -29,7 +31,9 @@ class DeleteCommand(
                 loadedPdf.save(pdfFile.filePath.toFile())
                 PDFFile(pdfFile.filePath, loadedPdf.numberOfPages)
             }
+            val updatedFileList = remainingPdfState.getPDFFileList() + listOf(updatedPDFFile)
+            updatedPdfState = PDFState((updatedFileList))
         }
-        return PDFState(updateFileList)
+        return updatedPdfState
     }
 }

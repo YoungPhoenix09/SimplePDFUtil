@@ -25,8 +25,9 @@ class MergeCommand(
         }
         val newPdfFile = mergePagesIntoNewFile(fileName)
         println()
+        println()
         println("Pages were merged into new file ${newPdfFile.filePath}.")
-        val updatedStateFileList = pdfState.getState() + listOf(newPdfFile)
+        val updatedStateFileList = pdfState.getPDFFileList() + listOf(newPdfFile)
         return PDFState(updatedStateFileList)
     }
 
@@ -37,7 +38,7 @@ class MergeCommand(
             val fileId = argument.toIntOrNull() ?:
                 throw Exception(Messages.NOT_INTEGER_ERROR)
             checkFileIdExists(fileId)
-            val pdfFile = pdfState.getState()[fileId-1]
+            val pdfFile = pdfState.getPDFFileList()[fileId-1]
             PDDocument.load(pdfFile.filePath.toFile()).use { loadedPdf ->
                 pdfMerger.appendDocument(newDoc, loadedPdf)
             }

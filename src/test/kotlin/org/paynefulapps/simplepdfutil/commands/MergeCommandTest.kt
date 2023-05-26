@@ -34,8 +34,8 @@ class MergeCommandTest {
         UserPrompter.sendStringsAsInput(fileNamePath.toString())
         val command = MergeCommand(pdfState, listOf("1","3"))
         val newPdfState = command.execute()
-        assertEquals(4, newPdfState.getState().size)
-        assertEquals(expectedPdfFile, newPdfState.getState()[3])
+        assertEquals(4, newPdfState.getPDFFileList().size)
+        assertEquals(expectedPdfFile, newPdfState.getPDFFileList()[3])
     }
 
     @OptIn(ExperimentalPathApi::class)

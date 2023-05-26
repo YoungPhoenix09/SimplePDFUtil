@@ -21,8 +21,9 @@ class ExtractCommand(
         }
         val newPdfFile = extractPagesIntoNewFile(fileName, filePageListMapping)
         println()
+        println()
         println("Pages were extracted into new file ${newPdfFile.filePath}.")
-        val updatedStateFileList = pdfState.getState() + listOf(newPdfFile)
+        val updatedStateFileList = pdfState.getPDFFileList() + listOf(newPdfFile)
         return PDFState(updatedStateFileList)
     }
 

@@ -15,7 +15,7 @@ class AddFileCommandTest {
         val pdfState = PDFState()
         val command = AddFileCommand(pdfState, listOf(pdfFile.filePath.toAbsolutePath().toString()))
         val newPDFState = command.execute()
-        assertEquals(1, newPDFState.getState().size)
+        assertEquals(1, newPDFState.getPDFFileList().size)
     }
     @Test
     fun `it is able to add multiple files to pdf state`() {
@@ -30,7 +30,7 @@ class AddFileCommandTest {
         )
         )
         val newPDFState = command.execute()
-        assertEquals(3, newPDFState.getState().size)
+        assertEquals(3, newPDFState.getPDFFileList().size)
     }
 
     @Test
@@ -44,7 +44,7 @@ class AddFileCommandTest {
         val pdfState = PDFState()
         val command = AddFileCommand(pdfState, listOf("C:/temp/test.pdf"))
         assertThrows<Exception> { command.execute() }
-        assertEquals(0, pdfState.getState().size)
+        assertEquals(0, pdfState.getPDFFileList().size)
     }
 
     @AfterEach

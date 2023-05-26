@@ -20,7 +20,7 @@ class ReorderCommandTest {
         UserPrompter.sendStringsAsInput("2,1,3")
         val command = ReorderCommand(pdfState, listOf("1"))
         val newPdfState = command.execute()
-        val pageContents = PDDocument.load(newPdfState.getState()[0].filePath.toFile()).use { modifiedPdf ->
+        val pageContents = PDDocument.load(newPdfState.getPDFFileList()[0].filePath.toFile()).use { modifiedPdf ->
             val pdfPage = modifiedPdf.getPage(0)
             pdfPage.contents.bufferedReader().use { it.readText() }
         }
@@ -32,7 +32,7 @@ class ReorderCommandTest {
         UserPrompter.sendStringsAsInput("2,1")
         val command = ReorderCommand(pdfState, listOf("1"))
         val newPdfState = command.execute()
-        val pageContents = PDDocument.load(newPdfState.getState()[0].filePath.toFile()).use { modifiedPdf ->
+        val pageContents = PDDocument.load(newPdfState.getPDFFileList()[0].filePath.toFile()).use { modifiedPdf ->
             val pdfPage = modifiedPdf.getPage(2)
             pdfPage.contents.bufferedReader().use { it.readText() }
         }

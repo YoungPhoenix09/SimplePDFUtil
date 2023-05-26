@@ -40,7 +40,7 @@ class PDFCommandProcessorTest {
         val testPdf2 = TestingUtil.createPDFFile("test")
         val expectedState = PDFState(listOf(testPdf, testPdf2))
         val actualState = pdfCommandProcessor.processCommand(initialPDFState, "add ${testPdf.filePath}, ${testPdf2.filePath}")
-        assertEquals(expectedState.getState(), actualState.getState())
+        assertEquals(expectedState.getPDFFileList(), actualState.getPDFFileList())
     }
 
     @Test
@@ -52,7 +52,7 @@ class PDFCommandProcessorTest {
         ))
         val expectedState = PDFState(listOf(testPdf2))
         val actualState = pdfCommandProcessor.processCommand(initialPDFState, "remove 1")
-        assertEquals(expectedState.getState(), actualState.getState())
+        assertEquals(expectedState.getPDFFileList(), actualState.getPDFFileList())
     }
 
     @Test
@@ -70,7 +70,7 @@ class PDFCommandProcessorTest {
             PDFFile(pdfFilePath,2)
         ))
         val actualState = pdfCommandProcessor.processCommand(initialPDFState, "extract 1,2")
-        assertEquals(expectedState.getState(), actualState.getState())
+        assertEquals(expectedState.getPDFFileList(), actualState.getPDFFileList())
     }
 
     @Test
@@ -88,7 +88,7 @@ class PDFCommandProcessorTest {
             PDFFile(pdfFilePath,2)
         ))
         val actualState = pdfCommandProcessor.processCommand(initialPDFState, "merge 1,2")
-        assertEquals(expectedState.getState(), actualState.getState())
+        assertEquals(expectedState.getPDFFileList(), actualState.getPDFFileList())
     }
 
     @Test
@@ -102,7 +102,7 @@ class PDFCommandProcessorTest {
             PDFFile(testPdf.filePath, 1),
         ))
         val actualState = pdfCommandProcessor.processCommand(initialPDFState, "delete 1")
-        assertEquals(expectedState.getState(), actualState.getState())
+        assertEquals(expectedState.getPDFFileList(), actualState.getPDFFileList())
     }
 
     @Test
@@ -116,7 +116,7 @@ class PDFCommandProcessorTest {
             PDFFile(testPdf.filePath, 3),
         ))
         val actualState = pdfCommandProcessor.processCommand(initialPDFState, "reorder 1")
-        assertEquals(expectedState.getState(), actualState.getState())
+        assertEquals(expectedState.getPDFFileList(), actualState.getPDFFileList())
     }
 
     @OptIn(ExperimentalPathApi::class)

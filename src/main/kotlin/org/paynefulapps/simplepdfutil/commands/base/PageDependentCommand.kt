@@ -16,7 +16,7 @@ abstract class PageDependentCommand(
     protected abstract fun operation(filePageListMapping: Map<PDFFile, List<Int>>): PDFState
 
     override fun execute(): PDFState {
-        val pdfFileList = pdfState.getState()
+        val pdfFileList = pdfState.getPDFFileList()
         val filePageListMapping = commandArguments.associate { arg ->
             val pdfFileId = arg.toIntOrNull() ?:
                 throw Exception(Messages.NOT_INTEGER_ERROR)
@@ -57,7 +57,7 @@ abstract class PageDependentCommand(
     }
 
     private fun checkPageNumberIsInPdfPageRange(fileId: Int, pageNumber: Int) {
-        val pdfFile = pdfState.getState()[fileId-1]
+        val pdfFile = pdfState.getPDFFileList()[fileId-1]
         val pdfPageRange = 1..pdfFile.pageCount
         if (!pdfPageRange.contains(pageNumber))
             throw Exception(Messages.getInvalidPagesError(fileId, pageNumber))

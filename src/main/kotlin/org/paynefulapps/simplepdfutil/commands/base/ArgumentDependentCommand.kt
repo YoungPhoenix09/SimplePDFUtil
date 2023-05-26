@@ -18,12 +18,12 @@ abstract class ArgumentDependentCommand(
     }
 
     protected fun checkStateHasFiles() {
-        if (pdfState.getState().isEmpty())
+        if (pdfState.getPDFFileList().isEmpty())
             throw Exception(Messages.NO_FILES_ERROR)
     }
 
     protected fun checkFileIdExists(fileId: Int) {
-        val fileIdRange = 1..pdfState.getState().size
+        val fileIdRange = 1..pdfState.getPDFFileList().size
         if (!fileIdRange.contains(fileId))
             throw Exception(Messages.getNoFileIdError(fileId))
     }

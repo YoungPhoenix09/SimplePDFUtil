@@ -16,7 +16,7 @@ class RemoveFileCommand(
                 throw Exception(Messages.NOT_INTEGER_ERROR)
             val pdfNumberStateIndex = pdfNumber - 1
 
-            newPDFState = newPDFState.removeFile(pdfState.getState()[pdfNumberStateIndex])
+            newPDFState = newPDFState.removeFile(pdfState.getPDFFileList()[pdfNumberStateIndex])
         }
         return newPDFState
     }
