@@ -13,7 +13,11 @@ class SimplePDFUtil {
             val commandString = UserPrompter.promptUser(Messages.PROMPT_FOR_COMMAND)
             println()
             println()
-            pdfState = commandProcessor.processCommand(pdfState, commandString)
+            try {
+                pdfState = commandProcessor.processCommand(pdfState, commandString)
+            } catch (e: Exception) {
+                println(e.message)
+            }
         } while (commandString.lowercase() != "exit")
     }
 
