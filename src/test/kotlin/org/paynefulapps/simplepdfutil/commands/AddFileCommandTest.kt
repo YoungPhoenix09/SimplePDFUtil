@@ -17,6 +17,7 @@ class AddFileCommandTest {
         val newPDFState = command.execute()
         assertEquals(1, newPDFState.getPDFFileList().size)
     }
+
     @Test
     fun `it is able to add multiple files to pdf state`() {
         val pdfFile1 = TestingUtil.createPDFFile()

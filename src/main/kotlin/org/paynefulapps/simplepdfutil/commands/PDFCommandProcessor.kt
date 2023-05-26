@@ -14,6 +14,7 @@ class PDFCommandProcessor {
         val commandArguments = splitOutCommandArguments(commandStringList)
 
         return when (commandType) {
+            PDFCommandType.HELP -> HelpCommand(currentPDFState)
             PDFCommandType.ADD_FILE -> AddFileCommand(currentPDFState, commandArguments)
             PDFCommandType.REMOVE_FILE -> RemoveFileCommand(currentPDFState, commandArguments)
             PDFCommandType.EXTRACT -> ExtractCommand(currentPDFState, commandArguments)
@@ -38,6 +39,7 @@ class PDFCommandProcessor {
         else emptyList()
 
     private enum class PDFCommandType(val stringCommand: String) {
+        HELP("help"),
         ADD_FILE("add"),
         REMOVE_FILE("remove"),
         EXTRACT("extract"),

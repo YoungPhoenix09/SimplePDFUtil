@@ -119,6 +119,14 @@ class PDFCommandProcessorTest {
         assertEquals(expectedState.getPDFFileList(), actualState.getPDFFileList())
     }
 
+    @Test
+    fun `it can process a HelpCommand`() {
+        val initialPDFState = PDFState()
+        val expectedState = PDFState()
+        val actualState = pdfCommandProcessor.processCommand(initialPDFState, "help")
+        assertEquals(expectedState.getPDFFileList(), actualState.getPDFFileList())
+    }
+
     @OptIn(ExperimentalPathApi::class)
     @AfterEach
     fun cleanup() {

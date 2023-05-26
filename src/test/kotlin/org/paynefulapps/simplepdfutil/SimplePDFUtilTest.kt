@@ -16,7 +16,7 @@ class SimplePDFUtilTest {
     @Test
     fun `it produces welcome`() {
         val newLine = System.lineSeparator()
-        val expectedMessage = "${Messages.WELCOME}${Messages.PDF_STATE_HEADER}$newLine${Messages.PDF_STATE_NO_FILES}$newLine$newLine${Messages.PROMPT_FOR_COMMAND}$newLine$newLine"
+        val expectedMessage = "${Messages.WELCOME}${Messages.COMMANDS}$newLine$newLine${Messages.PDF_STATE_HEADER}$newLine${Messages.PDF_STATE_NO_FILES}$newLine$newLine${Messages.PROMPT_FOR_COMMAND}$newLine$newLine"
         UserPrompter.sendStringsAsInput("exit")
         SimplePDFUtil()
         assertEquals(expectedMessage, SystemIOReplacer.newOut.toString())
@@ -26,7 +26,7 @@ class SimplePDFUtilTest {
     @Test
     fun `it reports errors readably`() {
         val newLine = System.lineSeparator()
-        val expectedMessage = "${Messages.WELCOME}${Messages.PDF_STATE_HEADER}$newLine${Messages.PDF_STATE_NO_FILES}$newLine$newLine${Messages.PROMPT_FOR_COMMAND}$newLine$newLine${Messages.INVALID_COMMAND_ERROR}$newLine${Messages.PDF_STATE_HEADER}$newLine${Messages.PDF_STATE_NO_FILES}$newLine$newLine${Messages.PROMPT_FOR_COMMAND}$newLine$newLine"
+        val expectedMessage = "${Messages.WELCOME}${Messages.COMMANDS}$newLine$newLine${Messages.PDF_STATE_HEADER}$newLine${Messages.PDF_STATE_NO_FILES}$newLine$newLine${Messages.PROMPT_FOR_COMMAND}$newLine$newLine${Messages.INVALID_COMMAND_ERROR}$newLine${Messages.PDF_STATE_HEADER}$newLine${Messages.PDF_STATE_NO_FILES}$newLine$newLine${Messages.PROMPT_FOR_COMMAND}$newLine$newLine"
         UserPrompter.sendStringsAsInput("", "exit")
         assertDoesNotThrow { SimplePDFUtil() }
         assertEquals(expectedMessage, SystemIOReplacer.newOut.toString())

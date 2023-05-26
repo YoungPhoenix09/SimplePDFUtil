@@ -8,6 +8,7 @@ class SimplePDFUtil {
 
     init {
         displayWelcome()
+        displayCommands()
         do {
             pdfState.printState()
             val commandString = UserPrompter.promptUser(Messages.PROMPT_FOR_COMMAND)
@@ -23,6 +24,11 @@ class SimplePDFUtil {
 
     private fun displayWelcome() {
         print(Messages.WELCOME)
+    }
+
+    private fun displayCommands() {
+        println(Messages.COMMANDS)
+        println()
     }
 }
 
